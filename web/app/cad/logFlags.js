@@ -1,6 +1,6 @@
 export const LOG_FLAGS = {
 
-  ACTION_RUN: false,
+  ACTION_RUN: true,
   PICK: false
   
 };

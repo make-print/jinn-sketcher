@@ -1,13 +1,13 @@
-import {enableAnonymousActionHint} from './anonHint';
-import * as stream from 'lstream';
-import {state, StateStream, Stream} from 'lstream';
-import {LOG_FLAGS} from '../logFlags';
-import {ApplicationContext} from "cad/context";
-import {IconType} from "react-icons";
+import { enableAnonymousActionHint } from "./anonHint";
+import * as stream from "lstream";
+import { state, StateStream, Stream } from "lstream";
+import { LOG_FLAGS } from "../logFlags";
+import { ApplicationContext } from "cad/context";
+import { IconType } from "react-icons";
 
 export function activate(context: ApplicationContext) {
-  
-  const {streams} = context;
+
+  const { streams } = context;
 
   const appearanceStreams: ActionAppearanceStreams = {};
   const stateStreams: ActionStateStreams = {};
@@ -18,18 +18,18 @@ export function activate(context: ApplicationContext) {
     state: stateStreams,
     hint: hint$
   };
-  
+
   const runners = {};
-  
+
   const showAnonymousActionHint = enableAnonymousActionHint(context);
-  
+
   function run(id: string, data?: any): void {
     const state = streams.action.state[id].value;
     const runner = runners[id];
-    if (!state||!runner) {
-      console.warn('request to run nonexistent action');
+    if (!state || !runner) {
+      console.warn("request to run nonexistent action");
       return;
-    } 
+    }
     if (state.enabled) {
       if (LOG_FLAGS.ACTION_RUN) {
         console.log("RUNNING ACTION: " + id);
@@ -46,7 +46,7 @@ export function activate(context: ApplicationContext) {
     runners[action.id] = action.invoke;
 
     const initialState = {
-      hint: '',
+      hint: "",
       enabled: true,
       visible: true
     };
@@ -58,12 +58,12 @@ export function activate(context: ApplicationContext) {
 
       action.listens(context).attach(data => {
         actionStateStream.mutate(v => {
-          v.hint = '';
+          v.hint = "";
           v.enabled = true;
           v.visible = true;
           action.update(v, data, context);
           return v;
-        })
+        });
       });
     }
   }
@@ -78,7 +78,7 @@ export function activate(context: ApplicationContext) {
 
   function showHintFor(request: HintRequest) {
     if (request) {
-      const {actionId, x, y, requester} = request;
+      const { actionId, x, y, requester } = request;
       const actionState = streams.action.state[actionId]?.value;
       const actionAppearance = streams.action.appearance[actionId]?.value;
       if (actionState && actionAppearance) {
@@ -95,18 +95,18 @@ export function activate(context: ApplicationContext) {
     }
   }
 
-  context.actionService = {run, registerAction, registerActions, showHintFor, appearanceStreams, stateStreams, hint$};
+  context.actionService = { run, registerAction, registerActions, showHintFor, appearanceStreams, stateStreams, hint$ };
 
   context.services.action = context.actionService;
 }
 
 
 export interface ActionAppearanceStreams {
-  [actionId: string]: StateStream<ActionAppearance>
+  [actionId: string]: StateStream<ActionAppearance>;
 }
 
 export interface ActionStateStreams {
-  [actionId: string]: StateStream<ActionState>
+  [actionId: string]: StateStream<ActionState>;
 }
 
 export interface ActionState {
@@ -145,14 +145,17 @@ export interface ActionDefinition<T = void> {
 
 export interface ActionService {
 
-  run(id: string, data?: any): void;
-  registerAction(action: ActionDefinition): void;
-  registerActions(actions: ActionDefinition[]): void;
-  showHintFor(request: HintRequest): void;
-
   appearanceStreams: ActionAppearanceStreams;
   stateStreams: ActionStateStreams;
   hint$: StateStream<Hint>;
+
+  run(id: string, data?: any): void;
+
+  registerAction(action: ActionDefinition): void;
+
+  registerActions(actions: ActionDefinition[]): void;
+
+  showHintFor(request: HintRequest): void;
 }
 
 export interface ActionSystemBundleContext {
