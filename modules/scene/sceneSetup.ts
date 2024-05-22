@@ -163,6 +163,8 @@ export default class SceneSetUp {
   setUpControls() {
     //  controls = new THREE.OrbitControls( camera , renderer.domElement);
     const trackballControls: any = new CADTrackballControls(this.camera , this.renderer.domElement);
+    // Define the controls instance globally
+    (window as any).controls = trackballControls;
 
     // document.addEventListener( 'mousemove', function(){
 
