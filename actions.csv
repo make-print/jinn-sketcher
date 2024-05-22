@@ -1,0 +1,253 @@
+ID,Label,Path
+EXPORT_BREP,EXPORT BREP,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\actions\exportBREP\exportBREP.action.ts
+GET_INFO,OBJECT INFO,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\actions\getInfo\getInfo.action.ts
+BOOLEAN,Boolean,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\boolean\boolean.operation.ts
+UNION,Tools,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\boolean\boolean.operation.ts
+SUBTRACT,Keep Tools,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\boolean\boolean.operation.ts
+INTERSECT,Targets,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\boolean\boolean.operation.ts
+DEFEATURE_REMOVE_FACE,Delete Face,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\defeatureRemoveFace\defeatureRemoveFace.operation.ts
+DELETE_BODY,DeleteBody,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\deleteBody\deleteBody.operation.ts
+EXTRUDE,Extrude,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\extrude\extrude.operation.ts
+CUT,length,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\extrude\extrude.operation.ts
+FILLET_TOOL,Fillet/Chapher,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\fillet\fillet.operation.ts
+HOLE_TOOL,hole,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\hole\Hole.operation.ts
+IMPORT_MODEL,Import,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\importModel\importModel.operation.ts
+LOFT,Loft,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\loft\loft.operation.ts
+MIRROR_BODY,Mirror Body,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\mirrorBody\mirrorBody.operation.ts
+MOVE_BODY,Move Body,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\moveBody\moveBody.operation.ts
+PATTERN_LINEAR,Linear pattern,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\patternLinear\patternLinear.operation.ts
+PATTERN_RADIAL,Radial pattern,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\patternRadial\patternRadial.operation.ts
+PLANE,Plane,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\plane\simplePlaneOperation.ts
+BOX,Box,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveBox\primitiveBox.operation.ts
+F:LEFT,X,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveBox\primitiveBox.operation.ts
+F:RIGHT,Y,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveBox\primitiveBox.operation.ts
+F:BASE,Z,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveBox\primitiveBox.operation.ts
+F:LID,locations,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveBox\primitiveBox.operation.ts
+F:BACK,boolean,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveBox\primitiveBox.operation.ts
+F:FRONT,none,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveBox\primitiveBox.operation.ts
+CONE,Cone,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveCone\PrimitiveCone.operation.ts
+F:SIDE,Diameter A,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveCone\PrimitiveCone.operation.ts
+F:BASE,Diameter B,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveCone\PrimitiveCone.operation.ts
+F:LID,Height,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveCone\PrimitiveCone.operation.ts
+CYLINDER,Cylinder,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveCylinder\PrimitiveCylinder.operation.ts
+F:SIDE,Diameter,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveCylinder\PrimitiveCylinder.operation.ts
+F:BASE,Height,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveCylinder\PrimitiveCylinder.operation.ts
+F:LID,locations,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveCylinder\PrimitiveCylinder.operation.ts
+SPHERE,Sphere,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveSphere\PrimitiveSphere.operation.ts
+F:SPHERE,Radius,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveSphere\PrimitiveSphere.operation.ts
+TORUS,Torus,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveTorus\PrimitiveTorus.operation.ts
+F:TORUS,Radius,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\primitiveTorus\PrimitiveTorus.operation.ts
+REVOLVE,Revolve,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\revolve\revolve.operation.ts
+SCALE_BODY,Scale,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\scaleBody\scaleBody.operation.ts
+SHELL_TOOL,Shell,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\shell\shell.operation.ts
+SWEEP,Sweep,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\sweep\sweep.operation.ts
+WIRE_LINE,Line,D:\Make-Print-Dev\jsketcher\modules\workbenches\modeler\features\wireLine\wireLine.ts
+RE_AUTO_ROUTE,AUTO ROUTE,D:\Make-Print-Dev\jsketcher\modules\workbenches\routingElectrical\features\autoRoute\autoRoute.operation.ts
+SM_FLANGE,Flange,D:\Make-Print-Dev\jsketcher\modules\workbenches\sheetMetal\features\smFlange\smFlange.operation.ts
+SM_TAB,SM Tab,D:\Make-Print-Dev\jsketcher\modules\workbenches\sheetMetal\features\smTab\smTab.operation.ts
+debug,debug,D:\Make-Print-Dev\jsketcher\web\app\cad\debugBundle.js
+DebugPrintAllSolids,print all solids,D:\Make-Print-Dev\jsketcher\web\app\cad\debugBundle.js
+DebugPrintFace,print face,D:\Make-Print-Dev\jsketcher\web\app\cad\debugBundle.js
+DebugFaceId,print face id,D:\Make-Print-Dev\jsketcher\web\app\cad\debugBundle.js
+DebugFaceSketch,print face sketch,D:\Make-Print-Dev\jsketcher\web\app\cad\debugBundle.js
+DebugSetSketcherIntegerPrecision,set sketch precision to 0(integer),D:\Make-Print-Dev\jsketcher\web\app\cad\debugBundle.js
+DebugOpenLastTest,open last test,D:\Make-Print-Dev\jsketcher\web\app\cad\debugBundle.js
+DebugOpenBrepDebugger,open BREP debugger,D:\Make-Print-Dev\jsketcher\web\app\cad\debugBundle.js
+EditFace,sketch,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+ReassignSketch,reassign sketch,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+Save,save,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+StlExport,STL Export,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+ImagePngExport,PNG Export,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+NativeFormatExport,Download Project,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+NativeFormatImport,Import Project,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+NativeFormatImportAs,Import Project as...,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+NewProject,New Project...,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+CloneCurrentProject,Clone Project...,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+RefreshSketches,Refresh Sketches,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+DeselectAll,deselect all,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+ToggleCameraMode,toggle camera,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+Info,info,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+Donate,donate,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+GitHub,GitHub,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+ShowSketches,show sketches,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+noIcon,no icon,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+ExportFaceToDXF,export face DXF,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\coreActions.js
+SetHistoryPointer,set history,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\historyActions.js
+OpenHistoryWizard,edit operation,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\historyActions.js
+EditOperationSketch,sketch,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\historyActions.js
+RemoveModification,remove modification,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\historyActions.js
+ZoomIn,Look at,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+ZoomOut,front,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+LookAtFace,back,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+CycleFacesNext,left,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+CycleFacesPrev,right,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+StandardViewFront,top,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+StandardViewBack,bottom,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+StandardViewLeft,three way,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+StandardViewRight,three way back,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+StandardViewTop,wireframe,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+StandardViewBottom,shaded,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+StandardView3Way,shaded with edges,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+StandardView3WayBack,none,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+HistoryBackward,none,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+HistoryForward,none,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+ViewMode_WIREFRAME_ON,none,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+ViewMode_SHADED_ON,none,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+ViewMode_SHADED_WITH_EDGES_ON,none,D:\Make-Print-Dev\jsketcher\web\app\cad\actions\usabilityActions.js
+EdgeAlign,none,D:\Make-Print-Dev\jsketcher\web\app\cad\assembly\constraints\edgeAlign.ts
+FaceTouchAlign,none,D:\Make-Print-Dev\jsketcher\web\app\cad\assembly\constraints\faceTouchAlign.ts
+ModelDisplayOptions,display options...,D:\Make-Print-Dev\jsketcher\web\app\cad\attributes\attributesBundle.ts
+ModelAttributesEditor,edit attributes...,D:\Make-Print-Dev\jsketcher\web\app\cad\attributes\attributesBundle.ts
+DATUM_CREATE,Create Datum,D:\Make-Print-Dev\jsketcher\web\app\cad\craft\datum\create\createDatumOperation.js
+DATUM_MOVE,Move Datum,D:\Make-Print-Dev\jsketcher\web\app\cad\craft\datum\move\moveDatumOperation.js
+DATUM_ROTATE,Rotate Datum,D:\Make-Print-Dev\jsketcher\web\app\cad\craft\datum\rotate\rotateDatumOperation.js
+menu.,none,D:\Make-Print-Dev\jsketcher\web\app\cad\dom\menu\menuBundle.js
+expressionsUpdateTable,update expressions,D:\Make-Print-Dev\jsketcher\web\app\cad\expressions\expressionsBundle.ts
+web-cad.org,none,D:\Make-Print-Dev\jsketcher\web\app\cad\partImport\remotePartsConfig.ts
+IMPORT_PART,import part,D:\Make-Print-Dev\jsketcher\web\app\cad\partImport\importPartOperation\importPartOperation.ts
+sketchConstraint_coincident,coincident,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_verticalConstraint,vertical,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_horizontalConstraint,horizontal,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_parallelConstraint,parallel,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_perpendicularConstraint,perpendicular,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_P2LDistanceConstraint,point & line,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_P2PDistanceConstraint,point & point,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_RadiusConstraint,radius,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_EntityEqualityConstraint,equals,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_tangentConstraint,tangent,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_lockConstraint,lock,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_pointOnLine,point & line,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_pointOnArc,point & arc,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_pointInMiddle,point @ middle,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_llAngle,angle,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_symmetry,symmetry,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_mirror,mirror,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchConstraint_lockConvex,convex,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherConstraintsActions.js
+sketchSaveAndExit,commit,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherControlActions.js
+sketchExit,exit sketch,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherControlActions.js
+sketchOpenInTab,2D,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherControlActions.js
+sketchReferencePoint,reference point,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchPanTool,pan tool,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddPoint,add point,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddSegment,add segment,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddMultiSegment,add multi segment,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddArc,add arc,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddCircle,add circle,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddEllipse,add ellipse,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddEllipticalArc,add elliptical arc,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddCubicBezierSpline,add cubic bezier spline,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddRectangle,add rectangle,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchOffsetTool,polygon offset,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddFillet,add fillet,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddDim,add dimension,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddHDim,add horizontal dimension,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchAddVDim,add vertical dimension,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+sketchCircleDim,add circle dimension,D:\Make-Print-Dev\jsketcher\web\app\cad\sketch\sketcherToolActions.js
+file,add,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+craft,views,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+primitives,mode,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+views,bool,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+viewModes,start,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+boolean,datum,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+main,contextual,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+datum,none,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+contextual,none,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\menuConfig.js
+workbenches,workbenches,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\workbenchBundle.ts
+workbench.switch.,none,D:\Make-Print-Dev\jsketcher\web\app\cad\workbench\workbenchService.ts
+New,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\commonActions.js
+Clone,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\commonActions.js
+Open,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\commonActions.js
+Save,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\commonActions.js
+Export,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\commonActions.js
+Fit,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\commonActions.js
+ToggleTerminal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\commonActions.js
+Coincident,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Tangent,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+EqualRadius,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+EqualLength,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+PointOnLine,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+PointOnCircle,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+PointOnCurve,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+PointInMiddle,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Symmetry,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Angle,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Vertical,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Horizontal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+AngleBetween,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Perpendicular,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Parallel,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Length,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+RadiusLength,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+DistancePL,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+DistancePP,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Lock,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+Fillet,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintActions.js
+CoincidentGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+VerticalGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+HorizontalGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+ParallelGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+PerpendicularGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+DistancePLGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+DistanceGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+EntityEqualityGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+PointOnLineGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+TangentGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+RadiusGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+PointOnCurveGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+PointInMiddleGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+SymmetryGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+AngleBetweenGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+AngleGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+LockGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+FilletGlobal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+MirrorStart,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\constraintGlobalActions.js
+ExportSVG,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\exportActions.js
+ExportDXF,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\exportActions.js
+PanTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\generalToolActions.js
+ReferencePointTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\generalToolActions.js
+MeasureDistance,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\measureActions.js
+MeasureHDistance,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\measureActions.js
+MeasureVDistance,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\measureActions.js
+MeasureCircle,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\measureActions.js
+MeasureAngleBetween,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\measureActions.js
+AddObjectLabel,Label Text,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectActions.js
+EditConstraintFromItsAnnotation,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectActions.js
+PointTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+SegmentTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+MultiLineTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+CircleTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+ArcTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+EllipseTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+EllipseArcTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+BezierTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+RectangleTool,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\objectToolActions.js
+Mirror,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\operationActions.js
+Offset,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\actions\operationActions.js
+PCoincident,flip,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+TangentLC,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+PointOnLine,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+PointOnCircle,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+PointOnBezier,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+TangentLineBezier,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+PointOnEllipse,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+PointInMiddle,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Symmetry,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+DistancePP,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+DistancePL,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Angle,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Vertical,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Horizontal,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+AngleBetween,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Perpendicular,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Parallel,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+SegmentLength,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+RadiusLength,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Polar,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+EqualRadius,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+EqualLength,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+LockPoint,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+ArcConsistency,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Fillet,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\constr\ANConstraints.ts
+Boundary,Boundary Data,D:\Make-Print-Dev\jsketcher\web\app\sketcher\generators\boundaryGenerator.js
+GroundObjects,none,D:\Make-Print-Dev\jsketcher\web\app\sketcher\generators\groundObjectsGenerator.ts
+Mirror,reflection line,D:\Make-Print-Dev\jsketcher\web\app\sketcher\generators\mirrorGenerator.js
