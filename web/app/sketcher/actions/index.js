@@ -85,6 +85,7 @@ export function runActionOrToastWhyNot(actionId, ctx, silent) {
 }
 
 export function startOperation(ctx, actionId) {
+  console.log('startOperation, doing : ' + actionId + ' action' + ' ctx: ' + ctx);
   initIfNeeded();
   const action = index[actionId];
   if (action.wizard) {
