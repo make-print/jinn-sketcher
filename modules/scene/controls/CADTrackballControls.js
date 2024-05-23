@@ -87,6 +87,22 @@ export function CADTrackballControls( object, domElement ) {
   // methods
 
   //Setters for internals
+   this.setState = function(state) {
+    if (state == -1){
+      _state = STATE.NONE;
+    } else if (state == 0){
+      _state = STATE.ROTATE;
+    } else if (state == 1){
+      _state = STATE.ZOOM;
+    } else if (state == 2){
+      _state = STATE.PAN;
+    } else if (state == 3){
+      _state = STATE.TOUCH_ROTATE;
+    } else if (state == 4){
+      _state = STATE.TOUCH_ZOOM_PAN;
+    }
+  };
+
    this.setMovePrev = function(x, y) {
     _movePrev.set(x, y);
   };
@@ -179,6 +195,7 @@ export function CADTrackballControls( object, domElement ) {
       // console.log('Rotating Camera by Angle', angle)
 
       if (angle) {
+        console.log('Rotating Camera by Angle', angle)
         _eye.copy(_this.object.position).sub(_this.target);
 
         eyeDirection.copy(_eye).normalize();
@@ -348,6 +365,7 @@ export function CADTrackballControls( object, domElement ) {
   }
 
   this.simulateMouseMove = function(pageX, pageY) {
+    // _state = STATE.ROTATE;
     mousemove({
       type: 'mousemove',
       pageX: pageX,
@@ -394,11 +412,14 @@ export function CADTrackballControls( object, domElement ) {
     event.stopPropagation();
 
     if (_state === STATE.ROTATE && !_this.noRotate) {
+      console.log("Rotating Camera by", _moveCurr, _movePrev)
       _movePrev.copy(_moveCurr);
       _moveCurr.copy(getMouseOnCircle(event.pageX, event.pageY));
     } else if (_state === STATE.ZOOM && !_this.noZoom) {
+      console.log("Zooming Camera by", _zoomEnd, _zoomStart)
       _zoomEnd.copy(getMouseOnScreen(event.pageX, event.pageY));
     } else if (_state === STATE.PAN && !_this.noPan) {
+      console.log("Panning Camera by", _panEnd, _panStart)
       _panEnd.copy(getMouseOnScreen(event.pageX, event.pageY));
     }
   }
@@ -570,3 +591,85 @@ export function CADTrackballControls( object, domElement ) {
 
 CADTrackballControls.prototype = Object.create(THREE.EventDispatcher.prototype);
 CADTrackballControls.prototype.constructor = CADTrackballControls;
+
+/*
+Rotation simulation with mouse move events
+
+if (window.controls) {
+  window.controls.setState(0);  // Set state to ROTATE
+
+  let x = 0;  // Initial x-coordinate for y-axis rotation
+  let y = 0;  // Initial y-coordinate for x-axis rotation
+  const speed = 1;  // Speed of rotation in pixels per frame
+  const framesForFullRotationX = window.innerHeight / speed; // Number of frames to complete 360 rotation around x-axis
+  const framesForFullRotationY = window.innerWidth / speed;  // Number of frames to complete 360 rotation around y-axis
+
+  let currentFrameX = 0;
+  let currentFrameY = 0;
+
+  function rotateContinuouslyX() {
+    // Increment the y-coordinate to simulate rotation around the x-axis
+    y += speed;
+    currentFrameX++;
+
+    // Simulate the mouse move to the new position (y changes, x is constant)
+    window.controls.simulateMouseMove(x, y);
+
+    // Check if a full 360 rotation is done around x-axis
+    if (currentFrameX >= framesForFullRotationX) {
+      currentFrameX = 0;
+      setTimeout(rotateContinuouslyY, 1000);  // Start y-axis rotation after a brief pause
+    } else {
+      // Request the next frame for continuous rotation
+      requestAnimationFrame(rotateContinuouslyX);
+    }
+  }
+
+  function rotateContinuouslyY() {
+    // Increment the x-coordinate to simulate rotation around the y-axis
+    x += speed;
+    currentFrameY++;
+
+    // Simulate the mouse move to the new position (x changes, y is constant)
+    window.controls.simulateMouseMove(x, y);
+
+    // Check if a full 360 rotation is done around y-axis
+    if (currentFrameY >= framesForFullRotationY) {
+      console.log('Both rotations complete');
+    } else {
+      // Request the next frame for continuous rotation
+      requestAnimationFrame(rotateContinuouslyY);
+    }
+  }
+
+  // Start the rotation around the x-axis
+  rotateContinuouslyX();
+
+} else {
+  console.error('controls is not defined');
+}
+
+
+
+
+Rotation simulation with roteateCamera and animate
+
+if (window.controls) {
+  // Set initial and current positions for rotation
+  window.controls.setMovePrev(0, 0);  // Initial mouse position
+  window.controls.setMoveCurr(10, 40);  // New mouse position
+  
+  // Set the state to ROTATE
+  window.controls.setState(0); // 0 corresponds to ROTATE in the STATE object
+  
+  // Call the rotateCamera method
+  window.controls.rotateCamera();
+  
+  // Update the camera
+  window.controls.evaluate();
+
+  window.animate();  
+} else {
+  console.error('controls is not defined');
+}
+*/

@@ -39,7 +39,6 @@ export default class SceneSetUp {
   renderRequested: boolean;
 
   constructor(container) {
-    
     this.workingSphere = 10000;
     this.container = container;
     this.scene = new Scene();
@@ -50,6 +49,9 @@ export default class SceneSetUp {
 
     this.setUpCamerasAndLights();
     this.setUpControls();
+
+    // Bind the animate function to the window object
+    (window as any).animate = this.animate.bind(this);
 
     this.animate();
   }
@@ -281,9 +283,9 @@ export default class SceneSetUp {
   animate() {
     requestAnimationFrame( () => this.animate() );
     const controlsChangedViewpoint = this.trackballControls.evaluate();
-    if (controlsChangedViewpoint || this.renderRequested) {
+    // if (controlsChangedViewpoint || this.renderRequested) {
       this.__render_NeverCallMeFromOutside();
-    }
+    // }
     this.updateViewportSizeIfNeeded();
   }
 
