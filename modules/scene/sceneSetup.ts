@@ -1,7 +1,7 @@
-import DPR from 'dpr';
-import './utils/threeLoader';
-import './utils/vectorThreeEnhancement';
-import {CADTrackballControls} from './controls/CADTrackballControls';
+import DPR from "dpr";
+import "./utils/threeLoader";
+import "./utils/vectorThreeEnhancement";
+import { CADTrackballControls } from "./controls/CADTrackballControls";
 import {
   AmbientLight,
   Box3,
@@ -16,8 +16,8 @@ import {
   Vector3,
   WebGLRenderer
 } from "three";
-import {Emitter, stream} from "lstream";
-import {Camera} from "three/src/cameras/Camera";
+import { Emitter, stream } from "lstream";
+import { Camera } from "three/src/cameras/Camera";
 
 export default class SceneSetUp {
   workingSphere: number;
@@ -29,14 +29,13 @@ export default class SceneSetUp {
   camera: Camera;
   light: DirectionalLight;
   renderer: WebGLRenderer;
-  private _prevContainerWidth: number;
-  private _prevContainerHeight: number;
   trackballControls: CADTrackballControls;
   viewportSizeUpdate$ = stream();
   sceneRendered$: Emitter<any> = stream();
   viewCube;
-
   renderRequested: boolean;
+  private _prevContainerWidth: number;
+  private _prevContainerHeight: number;
 
   constructor(container) {
     this.workingSphere = 10000;
@@ -45,7 +44,7 @@ export default class SceneSetUp {
     this.rootGroup = this.scene;
     this.scene.userData.sceneSetUp = this;
     this.renderRequested = false;
-    this.viewCube = document.querySelector('.cube');
+    this.viewCube = document.querySelector(".cube");
 
     this.setUpCamerasAndLights();
     this.setUpControls();
@@ -78,7 +77,7 @@ export default class SceneSetUp {
   }
 
   createPerspectiveCamera() {
-    this.pCamera = new PerspectiveCamera( 60, this.aspect(), 0.1, 1000000 );
+    this.pCamera = new PerspectiveCamera(60, this.aspect(), 0.1, 1000000);
     this.pCamera.position.z = 1000;
     this.pCamera.position.x = -1000;
     this.pCamera.position.y = 300;
@@ -89,33 +88,33 @@ export default class SceneSetUp {
     this.createPerspectiveCamera();
 
     this.camera = this.oCamera;
-    
-    this.light = new DirectionalLight( 0xffffff );
-    this.light.position.set( 10, 10, 10 );
+
+    this.light = new DirectionalLight(0xffffff);
+    this.light.position.set(10, 10, 10);
     this.scene.add(this.light);
 
-    this.scene.add( new AmbientLight( 0xffffff, 0.25 ) );
+    this.scene.add(new AmbientLight(0xffffff, 0.25));
 
     this.renderer = new WebGLRenderer();
     this.renderer.setPixelRatio(DPR);
     this.renderer.setClearColor(0x808080, 1);
-    this.renderer.setSize( this.container.clientWidth,  this.container.clientHeight );
-    this.container.appendChild( this.renderer.domElement );
+    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+    this.container.appendChild(this.renderer.domElement);
   }
-  
+
   updateViewportSize() {
     if (this.container.clientWidth > 0 && this.container.clientHeight > 0) {
       this.updatePerspectiveCameraViewport();
       this.updateOrthographicCameraViewport();
-      this.renderer.setSize( this.container.clientWidth, this.container.clientHeight );
+      this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
       this.viewportSizeUpdate$.next();
       this.__render_NeverCallMeFromOutside();
     }
   }
 
   updateViewportSizeIfNeeded() {
-    if (this._prevContainerWidth !== this.container.clientWidth || 
-        this._prevContainerHeight !== this.container.clientHeight) {
+    if (this._prevContainerWidth !== this.container.clientWidth ||
+      this._prevContainerHeight !== this.container.clientHeight) {
       this.updateViewportSize();
       this._prevContainerWidth = this.container.clientWidth;
       this._prevContainerHeight = this.container.clientHeight;
@@ -131,10 +130,10 @@ export default class SceneSetUp {
     const width = this.container.clientWidth;
     const height = this.container.clientHeight;
     const factor = ORTHOGRAPHIC_CAMERA_FACTOR;
-    this.oCamera.left = - width / factor;
+    this.oCamera.left = -width / factor;
     this.oCamera.right = width / factor;
     this.oCamera.top = height / factor;
-    this.oCamera.bottom = - height / factor;
+    this.oCamera.bottom = -height / factor;
     this.oCamera.updateProjectionMatrix();
   }
 
@@ -143,8 +142,8 @@ export default class SceneSetUp {
     const camRotation = new Euler();
     const tempMatrix = new Matrix4();
 
-    camPosition.setFromMatrixPosition( targetCamera.matrixWorld );
-    camRotation.setFromRotationMatrix( tempMatrix.extractRotation( targetCamera.matrixWorld ) );
+    camPosition.setFromMatrixPosition(targetCamera.matrixWorld);
+    camRotation.setFromRotationMatrix(tempMatrix.extractRotation(targetCamera.matrixWorld));
     const camDistance = sourceCamera.position.length();
 
     sourceCamera.up.copy(this.camera.up);
@@ -164,7 +163,7 @@ export default class SceneSetUp {
 
   setUpControls() {
     //  controls = new THREE.OrbitControls( camera , renderer.domElement);
-    const trackballControls: any = new CADTrackballControls(this.camera , this.renderer.domElement);
+    const trackballControls: any = new CADTrackballControls(this.camera, this.renderer.domElement);
     // Define the controls instance globally
     (window as any).controls = trackballControls;
 
@@ -184,8 +183,9 @@ export default class SceneSetUp {
     trackballControls.staticMoving = true;
     trackballControls.dynamicDampingFactor = 0.3;
 
-    trackballControls.keys = [ 65, 83, 68 ];
+    trackballControls.keys = [65, 83, 68];
     this.trackballControls = trackballControls;
+
   }
 
   createRaycaster(viewX, viewY) {
@@ -196,31 +196,31 @@ export default class SceneSetUp {
       threshold: 20
     };
 
-    const x = ( viewX / this.container.clientWidth ) * 2 - 1;
-    const y = - ( viewY / this.container.clientHeight ) * 2 + 1;
+    const x = (viewX / this.container.clientWidth) * 2 - 1;
+    const y = -(viewY / this.container.clientHeight) * 2 + 1;
 
-    const mouse = new Vector3( x, y, 1 );
-    raycaster.setFromCamera( mouse, this.camera );
+    const mouse = new Vector3(x, y, 1);
+    raycaster.setFromCamera(mouse, this.camera);
     return raycaster;
   }
-  
+
   raycast(event, objects, logInfoOut = null) {
     const raycaster = this.createRaycaster(event.offsetX, event.offsetY);
     if (logInfoOut !== null) {
-      logInfoOut.ray = raycaster.ray
+      logInfoOut.ray = raycaster.ray;
     }
 
     const intersects = [];
 
     function intersectObject(object) {
 
-      object.raycast( raycaster, intersects );
+      object.raycast(raycaster, intersects);
 
       const children = object.children;
 
       if (object.visible) {
-        for ( let i = 0, l = children.length; i < l; i ++ ) {
-          intersectObject(children[ i ]);
+        for (let i = 0, l = children.length; i < l; i++) {
+          intersectObject(children[i]);
         }
       }
     }
@@ -229,10 +229,10 @@ export default class SceneSetUp {
 
     intersects.sort((a, b) => {
       if (Math.abs(a.distance - b.distance) < 0.01 && (a.object.raycastPriority || b.object.raycastPriority)) {
-        return b.object.raycastPriority||0 - a.object.raycastPriority||0;
+        return b.object.raycastPriority || 0 - a.object.raycastPriority || 0;
       }
       return a.distance - b.distance;
-    })
+    });
     return intersects;
   }
 
@@ -243,9 +243,9 @@ export default class SceneSetUp {
     const dir = to.sub(from);
     const dist = dir.length();
     raycaster.set(from, dir.normalize());
-    return raycaster.intersectObjects(objects, true ).filter(h => h.distance <= dist);
+    return raycaster.intersectObjects(objects, true).filter(h => h.distance <= dist);
   }
-  
+
   modelToScreen(pos) {
     const width = this.container.clientWidth, height = this.container.clientHeight;
     const widthHalf = width / 2, heightHalf = height / 2;
@@ -254,11 +254,11 @@ export default class SceneSetUp {
     vector.copy(pos);
     vector.project(this.camera);
 
-    vector.x = ( vector.x * widthHalf ) + widthHalf;
-    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+    vector.x = (vector.x * widthHalf) + widthHalf;
+    vector.y = -(vector.y * heightHalf) + heightHalf;
     return vector;
   }
-  
+
   lookAtObject(obj) {
     const camera = this.camera;
 
@@ -274,14 +274,13 @@ export default class SceneSetUp {
     camera.up = new Vector3(0, 1, 0);
   }
 
-  _zoomMeasure() {   
+  _zoomMeasure() {
     return this.trackballControls.object.position.length() / 1e3;
   }
-  
 
 
   animate() {
-    requestAnimationFrame( () => this.animate() );
+    requestAnimationFrame(() => this.animate());
     const controlsChangedViewpoint = this.trackballControls.evaluate();
     // if (controlsChangedViewpoint || this.renderRequested) {
       this.__render_NeverCallMeFromOutside();
@@ -289,15 +288,15 @@ export default class SceneSetUp {
     this.updateViewportSizeIfNeeded();
   }
 
+  domElement() {
+    return this.renderer.domElement;
+  }
+
   private __render_NeverCallMeFromOutside() {
     this.renderRequested = false;
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.renderer.render(this.scene, this.camera);
     this.sceneRendered$.next();
-  }
-
-  domElement() {
-    return this.renderer.domElement;   
   }
 }
 
@@ -307,7 +306,7 @@ export function getSceneSetup(object3D) {
       return object3D.userData.sceneSetUp;
     }
     object3D = object3D.parent;
-  } while(object3D);
+  } while (object3D);
   return null;
 }
 

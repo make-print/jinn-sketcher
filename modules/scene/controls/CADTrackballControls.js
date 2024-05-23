@@ -1,22 +1,21 @@
-
 /**
  * Added support of orthographic camera to original implementation
- * 
+ *
  * @author Eberhard Graether / http://egraether.com/
  * @author Mark Lundin 	/ http://mark-lundin.com
  * @author Simone Manini / http://daron1337.github.io
  * @author Luca Antiga 	/ http://lantiga.github.io
  */
 
- import DPR from 'dpr';
+import DPR from "dpr";
 
-export function CADTrackballControls( object, domElement ) {
+export function CADTrackballControls(object, domElement) {
 
   const _this = this;
-  const STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_ZOOM_PAN: 4 };
+  const STATE = { NONE: -1, ROTATE: 0, ZOOM: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_ZOOM_PAN: 4 };
 
   this.object = object;
-  this.domElement = ( domElement !== undefined ) ? domElement : document;
+  this.domElement = (domElement !== undefined) ? domElement : document;
 
   // API
 
@@ -38,7 +37,7 @@ export function CADTrackballControls( object, domElement ) {
   this.minDistance = 0;
   this.maxDistance = Infinity;
 
-  this.keys = [ 65 /*A*/, 83 /*S*/, 68 /*D*/ ];
+  this.keys = [65 /*A*/, 83 /*S*/, 68 /*D*/];
 
   // internals
 
@@ -80,30 +79,17 @@ export function CADTrackballControls( object, domElement ) {
   this.moveCurr = _moveCurr;
   // events
 
-  const startEvent = { type: 'start' };
-  const endEvent = { type: 'end' };
+  const startEvent = { type: "start" };
+  const endEvent = { type: "end" };
 
 
   // methods
 
-  //Setters for internals
-   this.setState = function(state) {
-    if (state == -1){
-      _state = STATE.NONE;
-    } else if (state == 0){
-      _state = STATE.ROTATE;
-    } else if (state == 1){
-      _state = STATE.ZOOM;
-    } else if (state == 2){
-      _state = STATE.PAN;
-    } else if (state == 3){
-      _state = STATE.TOUCH_ROTATE;
-    } else if (state == 4){
-      _state = STATE.TOUCH_ZOOM_PAN;
-    }
-  };
+  // simulating special keyboard presses
 
-   this.setMovePrev = function(x, y) {
+
+  //Setters for internals
+  this.setMovePrev = function(x, y) {
     _movePrev.set(x, y);
   };
 
@@ -131,7 +117,7 @@ export function CADTrackballControls( object, domElement ) {
     _panEnd.set(x, y);
   };
 
-  this.handleResize = function () {
+  this.handleResize = function() {
     if (this.domElement === document) {
       this.screen.left = 0;
       this.screen.top = 0;
@@ -147,13 +133,13 @@ export function CADTrackballControls( object, domElement ) {
     }
   };
 
-  this.handleEvent = function (event) {
-    if (typeof this[event.type] == 'function') {
+  this.handleEvent = function(event) {
+    if (typeof this[event.type] == "function") {
       this[event.type](event);
     }
   };
 
-  const getMouseOnScreen = (function () {
+  const getMouseOnScreen = (function() {
     const vector = new THREE.Vector2();
     return function getMouseOnScreen(pageX, pageY) {
       vector.set(
@@ -164,7 +150,7 @@ export function CADTrackballControls( object, domElement ) {
     };
   }());
 
-  const getMouseOnCircle = (function () {
+  const getMouseOnCircle = (function() {
     const vector = new THREE.Vector2();
     return function getMouseOnCircle(pageX, pageY) {
       vector.set(
@@ -175,7 +161,7 @@ export function CADTrackballControls( object, domElement ) {
     };
   }());
 
-  this.rotateCamera = (function () {
+  this.rotateCamera = (function() {
     const axis = new THREE.Vector3(),
       quaternion = new THREE.Quaternion(),
       eyeDirection = new THREE.Vector3(),
@@ -229,12 +215,12 @@ export function CADTrackballControls( object, domElement ) {
     };
   }());
 
-  this.setCameraMode = function (isOrthographic) {
+  this.setCameraMode = function(isOrthographic) {
     this.noZoom = isOrthographic;
     this.projectionZoom = isOrthographic;
   };
 
-  this.zoomCamera = function () {
+  this.zoomCamera = function() {
     let factor;
 
     if (_state === STATE.TOUCH_ZOOM_PAN) {
@@ -254,15 +240,15 @@ export function CADTrackballControls( object, domElement ) {
     }
   };
 
-  this.panCamera = (function () {
+  this.panCamera = (function() {
     const mouseChange = new THREE.Vector2(),
       objectUp = new THREE.Vector3(),
       pan = new THREE.Vector3();
 
-      console.log('Panning Camera by', _panEnd, _panStart);
+    console.log("Panning Camera by", _panEnd, _panStart);
     return function panCamera() {
       mouseChange.copy(_panEnd).sub(_panStart);
- 
+
       if (mouseChange.lengthSq()) {
         mouseChange.multiplyScalar(_eye.length() * _this.panSpeed);
         pan.copy(_eye).cross(_this.object.up).setLength(mouseChange.x);
@@ -278,7 +264,7 @@ export function CADTrackballControls( object, domElement ) {
     };
   }());
 
-  this.checkDistances = function () {
+  this.checkDistances = function() {
     if (!_this.noZoom || !_this.noPan) {
       if (_eye.lengthSq() > _this.maxDistance * _this.maxDistance) {
         _this.object.position.addVectors(_this.target, _eye.setLength(_this.maxDistance));
@@ -291,7 +277,7 @@ export function CADTrackballControls( object, domElement ) {
     }
   };
 
-  this.evaluate = function () {
+  this.evaluate = function() {
     this.panSpeed = DPR / this.object.zoom;
 
     _eye.subVectors(_this.object.position, _this.target);
@@ -322,7 +308,7 @@ export function CADTrackballControls( object, domElement ) {
     return needsRender;
   };
 
-  this.reset = function () {
+  this.reset = function() {
     _state = STATE.NONE;
     _prevState = STATE.NONE;
 
@@ -340,13 +326,15 @@ export function CADTrackballControls( object, domElement ) {
   // listeners
   function keydown(event) {
     if (_this.enabled === false) return;
+    console.log("Key down event: ", event.keyCode);
+    console.log('Event: ', event);
 
-    window.removeEventListener('keydown', keydown);
+    window.removeEventListener("keydown", keydown);
 
     _prevState = _state;
 
     if (_state !== STATE.NONE) {
-      return;
+
     } else if (event.keyCode === _this.keys[STATE.ROTATE] && !_this.noRotate) {
       _state = STATE.ROTATE;
     } else if (event.keyCode === _this.keys[STATE.ZOOM] && !_this.noZoom) {
@@ -361,17 +349,19 @@ export function CADTrackballControls( object, domElement ) {
 
     _state = _prevState;
 
-    window.addEventListener('keydown', keydown, false);
+    window.addEventListener("keydown", keydown, false);
   }
 
   this.simulateMouseMove = function(pageX, pageY) {
     // _state = STATE.ROTATE;
     mousemove({
-      type: 'mousemove',
+      type: "mousemove",
       pageX: pageX,
       pageY: pageY,
-      preventDefault: function() {},
-      stopPropagation: function() {}
+      preventDefault: function() {
+      },
+      stopPropagation: function() {
+      }
     });
   };
 
@@ -397,14 +387,14 @@ export function CADTrackballControls( object, domElement ) {
       _panEnd.copy(_panStart);
     }
 
-    document.addEventListener('mousemove', mousemove, false);
-    document.addEventListener('mouseup', mouseup, false);
+    document.addEventListener("mousemove", mousemove, false);
+    document.addEventListener("mouseup", mouseup, false);
 
     _this.dispatchEvent(startEvent);
   }
 
   function mousemove(event) {
-    console.log('Mouse move event', event.pageX, event.pageY)
+    console.log("Mouse move event", event.pageX, event.pageY);
 
     if (_this.enabled === false) return;
 
@@ -432,8 +422,8 @@ export function CADTrackballControls( object, domElement ) {
 
     _state = STATE.NONE;
 
-    document.removeEventListener('mousemove', mousemove);
-    document.removeEventListener('mouseup', mouseup);
+    document.removeEventListener("mousemove", mousemove);
+    document.removeEventListener("mouseup", mouseup);
     _this.dispatchEvent(endEvent);
   }
 
@@ -442,11 +432,11 @@ export function CADTrackballControls( object, domElement ) {
 
     event.preventDefault();
     event.stopPropagation();
-    console.log(event.deltaMode, event.deltaY)
+    console.log(event.deltaMode, event.deltaY);
     _this.zoomStep(event.deltaMode, event.deltaY);
   }
 
-  this.zoomStep = function (deltaMode, delta) {
+  this.zoomStep = function(deltaMode, delta) {
     if (_this.projectionZoom) {
       let speed = _this.projectionZoomSpeed;
       switch (deltaMode) {
@@ -559,32 +549,58 @@ export function CADTrackballControls( object, domElement ) {
     event.preventDefault();
   }
 
-  this.dispose = function () {
-    this.domElement.removeEventListener('contextmenu', contextmenu, false);
-    this.domElement.removeEventListener('mousedown', mousedown, false);
-    this.domElement.removeEventListener('wheel', mousewheel, false);
+  this.dispose = function() {
+    this.domElement.removeEventListener("contextmenu", contextmenu, false);
+    this.domElement.removeEventListener("mousedown", mousedown, false);
+    this.domElement.removeEventListener("wheel", mousewheel, false);
 
-    this.domElement.removeEventListener('touchstart', touchstart, false);
-    this.domElement.removeEventListener('touchend', touchend, false);
-    this.domElement.removeEventListener('touchmove', touchmove, false);
+    this.domElement.removeEventListener("touchstart", touchstart, false);
+    this.domElement.removeEventListener("touchend", touchend, false);
+    this.domElement.removeEventListener("touchmove", touchmove, false);
 
-    document.removeEventListener('mousemove', mousemove, false);
-    document.removeEventListener('mouseup', mouseup, false);
+    document.removeEventListener("mousemove", mousemove, false);
+    document.removeEventListener("mouseup", mouseup, false);
 
-    window.removeEventListener('keydown', keydown, false);
-    window.removeEventListener('keyup', keyup, false);
+    window.removeEventListener("keydown", keydown, false);
+    window.removeEventListener("keyup", keyup, false);
   };
 
-  this.domElement.addEventListener('contextmenu', contextmenu, false);
-  this.domElement.addEventListener('mousedown', mousedown, false);
-  this.domElement.addEventListener('wheel', mousewheel, false);
+  this.domElement.addEventListener("contextmenu", contextmenu, false);
+  this.domElement.addEventListener("mousedown", mousedown, false);
+  this.domElement.addEventListener("wheel", mousewheel, false);
 
-  this.domElement.addEventListener('touchstart', touchstart, false);
-  this.domElement.addEventListener('touchend', touchend, false);
-  this.domElement.addEventListener('touchmove', touchmove, false);
+  this.domElement.addEventListener("touchstart", touchstart, false);
+  this.domElement.addEventListener("touchend", touchend, false);
+  this.domElement.addEventListener("touchmove", touchmove, false);
 
-  window.addEventListener('keydown', keydown, false);
-  window.addEventListener('keyup', keyup, false);
+  window.addEventListener("keydown", keydown, false);
+  window.addEventListener("keyup", keyup, false);
+
+  this.simulateKeyDown = function(keyCode) {
+    keydown({
+      type: "keydown",
+      keyCode: keyCode,
+      which: keyCode,
+      code: "KeyE",
+      key: "e",
+      preventDefault: function() {},
+      stopPropagation: function() {}
+    });
+};
+
+this.simulateKeyUp = function(keyCode) {
+    keyup({
+      type: "keyup",
+      keyCode: keyCode,
+      which: keyCode,
+      code: "KeyE",
+      key: "e",
+      preventDefault: function() {},
+      stopPropagation: function() {}
+    });
+};
+
+
 
   this.handleResize();
 }
