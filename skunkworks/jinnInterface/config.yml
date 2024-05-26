@@ -1,0 +1,5 @@
+window_title: "CAD Application Window Title"
+width: 1280
+height: 720
+frame_rate: 30
+output_url: "rtmp://your-cloud-server/app/streamkey"
