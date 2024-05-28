@@ -9,6 +9,7 @@ import AppKit
 from PIL import Image
 import os
 from datetime import datetime
+import pyautogui
 
 # Load configuration from YAML file
 with open("./config.yml", "r") as config_file:
@@ -37,7 +38,6 @@ def find_window(title):
     windows = app.runningApplications()
 
     for win in windows:
-        print(win, win.localizedName())
         if win.localizedName() == title:
             return win
     raise Exception(f"find_window: Window with title '{title}' not found")
@@ -55,33 +55,20 @@ def capture_window(window_title):
     window_list = Quartz.CGWindowListCopyWindowInfo(options, Quartz.kCGNullWindowID)
     
     for win in window_list:
-        print(f"Window: {win}")
-        
-        # Capture and save the screenshot of each window
         window_id = win['kCGWindowNumber']
         bounds = win['kCGWindowBounds']
         window_name = win.get('kCGWindowOwnerName', 'UnnamedWindow')
         sanitized_window_name = sanitize_filename(window_name)
-        rect = CG.CGRectMake(bounds['X'], bounds['Y'], bounds['Width'], bounds['Height'])
-        screenshot = CG.CGWindowListCreateImage(rect, CG.kCGWindowListOptionIncludingWindow, window_id, CG.kCGWindowImageDefault)
         
-        if screenshot is not None:
-            width = CG.CGImageGetWidth(screenshot)
-            height = CG.CGImageGetHeight(screenshot)
-            provider = CG.CGImageGetDataProvider(screenshot)
-            data = CG.CGDataProviderCopyData(provider)
-            img_data = bytes(data)
+        # Use pyautogui to capture the screenshot
+        screenshot = pyautogui.screenshot(region=(int(bounds['X']), int(bounds['Y']), int(bounds['Width']), int(bounds['Height'])))
+        img = np.array(screenshot)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        img = cv2.resize(img, (width, height))  # Resize the image
 
-            img = Image.frombytes('RGBA', (width, height), img_data)
-            img = img.convert('RGB')  # Convert to RGB format
-            img = np.array(img)
-            img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-            img = cv2.resize(img, (width, height))  # Resize the image
-
-            # Save the screenshot
-            screenshot_filename = f"{windows_dir}/window_{window_id}_{sanitized_window_name}_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.png"
-            cv2.imwrite(screenshot_filename, img)
-            print(f'Screenshot saved: {screenshot_filename}')
+        # Save the screenshot
+        screenshot_filename = f"{windows_dir}/window_{window_id}_{sanitized_window_name}_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.png"
+        cv2.imwrite(screenshot_filename, img)
         
         # Check if the window matches the criteria
         if window_title in win.get('kCGWindowOwnerName', '') and win.get('kCGWindowName', '') != '':
@@ -91,54 +78,33 @@ def capture_window(window_title):
 
 def capture_and_stream(window_title, width, height, frame_rate, output_url, local_file):
     window_id, bounds = capture_window(window_title)
-    print(f"Window ID: {window_id}")
-    print(f"Window bounds: {bounds}")
     
     ffmpeg_input = ffmpeg.input('pipe:', format='rawvideo', pix_fmt='bgr24', s=f'{width}x{height}', framerate=frame_rate)
     
-    print(f"Setting up output streams")
-    
     if local_file:
-        print(f'Local file is defined')
-        ffmpeg_output_file = ffmpeg_input.output(local_file, pix_fmt='yuv420p', vcodec='libx264', preset='ultrafast')
+        ffmpeg_output_file = ffmpeg_input.output(local_file, pix_fmt='yuv420p', vcodec='libx264', preset='ultrafast', r=frame_rate)
         file_process = ffmpeg_output_file.overwrite_output().run_async(pipe_stdin=True)
     else:
         file_process = None
 
+    frame_interval = 1.0 / frame_rate
+    next_frame_time = time.time() + frame_interval
+
     while True:
         try:
-            rect = CG.CGRectMake(bounds['X'], bounds['Y'], bounds['Width'], bounds['Height'])
-            print(f"Rect: {rect}")
-            screenshot = CG.CGWindowListCreateImage(rect, CG.kCGWindowListOptionIncludingWindow, window_id, CG.kCGWindowImageDefault)
-            print(f'Capturing window: {window_title}')
-            print(f'Screenshot: {screenshot}')
-            if screenshot is None:
-                print('Screen shot is None')
-                raise Exception(f"Could not capture window '{window_title}'")
-            
-            width = CG.CGImageGetWidth(screenshot)
-            height = CG.CGImageGetHeight(screenshot)
-            provider = CG.CGImageGetDataProvider(screenshot)
-            data = CG.CGDataProviderCopyData(provider)
-            img_data = bytes(data)
-
-            img = Image.frombytes('RGBA', (width, height), img_data)
-            img = img.convert('RGB')  # Convert to RGB format
-            img = np.array(img)
+            screenshot = pyautogui.screenshot(region=(int(bounds['X']), int(bounds['Y']), int(bounds['Width']), int(bounds['Height'])))
+            img = np.array(screenshot)
             img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
             img = cv2.resize(img, (width, height))  # Resize the image
 
-            # Save each screenshot
             screenshot_filename = f"{screenshots_dir}/screenshot_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.png"
             cv2.imwrite(screenshot_filename, img)
-            print(f'Screenshot saved: {screenshot_filename}')
-
-            print(f'Captured image: {img.shape}')
 
             if file_process:
                 file_process.stdin.write(img.tobytes())
 
-            time.sleep(1 / frame_rate)
+            time.sleep(max(0, next_frame_time - time.time()))
+            next_frame_time += frame_interval
 
         except KeyboardInterrupt:
             break
@@ -150,7 +116,6 @@ def capture_and_stream(window_title, width, height, frame_rate, output_url, loca
 def main():
     try:
         window = find_window(window_title)
-        print(f'Found window: {window}')
         capture_and_stream(window_title, width, height, frame_rate, output_url, video_filename)
     except Exception as e:
         print(f"Error: {e}")
