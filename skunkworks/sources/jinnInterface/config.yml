@@ -1,6 +1,6 @@
 window_title: "Google Chrome"
 width: 1280
 height: 720
-frame_rate: 80
+frame_rate: 5
 output_url: "rtmp://your-cloud-server/app/streamkey"
 local_file: "videoStreamer.mp4"
