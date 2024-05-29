@@ -1,19 +1,18 @@
-import cv2
-import numpy as np
-import ffmpeg
-import yaml
-import time
-import Quartz
-import Quartz.CoreGraphics as CG
-import AppKit
-from PIL import Image
 import os
-from datetime import datetime
-import pyautogui
 import socket
 import threading
+import time
+from datetime import datetime
 
-class InterfaceOutputStream:
+import cv2
+import ffmpeg
+import numpy as np
+import pyautogui
+import pygetwindow as gw
+import yaml
+
+
+class InterfaceOutputStreamWin:
     def __init__(self, config_path):
         # Load configuration from YAML file
         with open(config_path, "r") as config_file:
@@ -38,12 +37,9 @@ class InterfaceOutputStream:
         self.video_filename = f"{self.recordings_dir}/videoStreamer_{timestamp}.mp4"
 
     def find_window(self, title):
-        app = AppKit.NSWorkspace.sharedWorkspace()
-        windows = app.runningApplications()
-
-        for win in windows:
-            if win.localizedName() == title:
-                return win
+        windows = gw.getWindowsWithTitle(title)
+        if windows:
+            return windows[0]
         raise Exception(f"find_window: Window with title '{title}' not found")
 
     def sanitize_filename(self, name):
@@ -51,38 +47,32 @@ class InterfaceOutputStream:
         return "".join(c for c in name if c.isalnum() or c in (' ', '_')).rstrip()
 
     def capture_window(self, window_title):
-        options = Quartz.kCGWindowListOptionOnScreenOnly
-        window_list = Quartz.CGWindowListCopyWindowInfo(options, Quartz.kCGNullWindowID)
-        
-        for win in window_list:
-            window_id = win['kCGWindowNumber']
-            bounds = win['kCGWindowBounds']
-            window_name = win.get('kCGWindowOwnerName', 'UnnamedWindow')
-            sanitized_window_name = self.sanitize_filename(window_name)
-            
-            # Use pyautogui to capture the screenshot
-            screenshot = pyautogui.screenshot(region=(int(bounds['X']), int(bounds['Y']), int(bounds['Width']), int(bounds['Height'])))
-            img = np.array(screenshot)
-            img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-            img = cv2.resize(img, (self.width, self.height))  # Resize the image
+        window = self.find_window(window_title)
+        bounds = window.box
 
-            # Save the screenshot
-            screenshot_filename = f"{self.screenshots_dir}/window_{window_id}_{sanitized_window_name}_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.png"
-            cv2.imwrite(screenshot_filename, img)
-            
-            # Check if the window matches the criteria
-            if window_title in win.get('kCGWindowOwnerName', '') and win.get('kCGWindowName', '') != '':
-                return window_id, bounds
-        
-        raise Exception(f"capture_window: Window with title '{window_title}' not found or has no name")
+        screenshot = pyautogui.screenshot(
+            region=(bounds.left, bounds.top, bounds.width, bounds.height)
+        )
+        img = np.array(screenshot)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        img = cv2.resize(img, (self.width, self.height))  # Resize the image
+
+        # Save the screenshot
+        sanitized_window_name = self.sanitize_filename(window_title)
+        screenshot_filename = f"{self.screenshots_dir}/window_{sanitized_window_name}_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.png"
+        cv2.imwrite(screenshot_filename, img)
+
+        return bounds
 
     def capture_and_stream(self, window_title, width, height, frame_rate, output_url, local_file, frame_conn):
-        window_id, bounds = self.capture_window(window_title)
-        
-        ffmpeg_input = ffmpeg.input('pipe:', format='rawvideo', pix_fmt='bgr24', s=f'{width}x{height}', framerate=frame_rate)
-        
+        bounds = self.capture_window(window_title)
+
+        ffmpeg_input = ffmpeg.input('pipe:', format='rawvideo', pix_fmt='bgr24', s=f'{width}x{height}',
+                                    framerate=frame_rate)
+
         if local_file:
-            ffmpeg_output_file = ffmpeg_input.output(local_file, pix_fmt='yuv420p', vcodec='libx264', preset='ultrafast', r=frame_rate)
+            ffmpeg_output_file = ffmpeg_input.output(local_file, pix_fmt='yuv420p', vcodec='libx264',
+                                                     preset='ultrafast', r=frame_rate)
             file_process = ffmpeg_output_file.overwrite_output().run_async(pipe_stdin=True)
         else:
             file_process = None
@@ -92,7 +82,14 @@ class InterfaceOutputStream:
 
         try:
             while True:
-                screenshot = pyautogui.screenshot(region=(int(bounds['X']), int(bounds['Y']), int(bounds['Width']), int(bounds['Height'])))
+                screenshot = pyautogui.screenshot(
+                    region=(
+                        bounds.left,
+                        bounds.top,
+                        bounds.width,
+                        bounds.height
+                    )
+                )
                 img = np.array(screenshot)
                 img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
                 img = cv2.resize(img, (width, height))  # Resize the image
@@ -124,7 +121,6 @@ class InterfaceOutputStream:
                 file_process.stdin.close()
                 file_process.wait()
 
-
     def start(self):
         def prompt_sender(prompt_conn):
             while True:
@@ -138,20 +134,24 @@ class InterfaceOutputStream:
         # Initialize frame socket connection
         frame_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         frame_socket.connect(('localhost', 9999))
-        threading.Thread(target=self.capture_and_stream, args=(self.window_title, self.width, self.height, self.frame_rate, self.output_url, self.video_filename, frame_socket)).start()
+        threading.Thread(target=self.capture_and_stream, args=(
+            self.window_title, self.width, self.height, self.frame_rate, self.output_url, self.video_filename,
+            frame_socket)).start()
 
         # Initialize prompt socket connection
         prompt_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         prompt_socket.connect(('localhost', 9998))
         threading.Thread(target=prompt_sender, args=(prompt_socket,)).start()
 
+
 def main():
     try:
         config_path = "./config.yml"
-        out_stream = InterfaceOutputStream(config_path)
+        out_stream = InterfaceOutputStreamWin(config_path)
         out_stream.start()
     except Exception as e:
         print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     main()

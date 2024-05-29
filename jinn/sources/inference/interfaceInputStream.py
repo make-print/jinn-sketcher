@@ -1,8 +1,9 @@
 import socket
+import threading
+
 import cv2
 import numpy as np
-from PIL import Image
-import threading
+
 
 class InterfaceInputStream:
     def __init__(self, frame_host, frame_port, prompt_host, prompt_port, width, height):
@@ -67,7 +68,6 @@ class InterfaceInputStream:
                 print(f"Connected to frame sender at {addr}")
                 receive_frames(conn)
 
-
     def get_prompt(self):
         return self.last_prompt
 
@@ -75,6 +75,7 @@ class InterfaceInputStream:
         if len(self.latest_frames) < n:
             return self.latest_frames[:]
         return self.latest_frames[-n:]
+
 
 if __name__ == "__main__":
     frame_host = 'localhost'

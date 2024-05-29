@@ -1,7 +1,7 @@
 import requests
 from PIL import Image
-from transformers import AutoProcessor, PaliGemmaForConditionalGeneration
 from huggingface_hub import login
+from transformers import AutoProcessor, PaliGemmaForConditionalGeneration
 
 # Login to Hugging Face Hub
 login(token="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")
