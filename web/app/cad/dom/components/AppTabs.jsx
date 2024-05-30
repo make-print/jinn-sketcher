@@ -30,6 +30,8 @@ export default function AppTabs() {
 
     <div className={ls.content}>
 
+      {/* <h1>Tabs</h1> */}
+
       <Card visible={activeTab < 0}>
         <View3d/>
       </Card>

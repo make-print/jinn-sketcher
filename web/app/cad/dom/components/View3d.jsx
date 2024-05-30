@@ -38,6 +38,7 @@ export default class View3d extends React.Component {
         <div className={ls.mainLayout}>
           <div className={ls.headsUp}>
             <HeadsUpToolbar/>
+            <h1>3D View</h1>
             <HeadsUpHelper/>
           </div>
 
