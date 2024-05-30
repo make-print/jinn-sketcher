@@ -68,7 +68,7 @@ class VertexAIPredictor:
         raw_image_np = inputs['pixel_values'][0].permute(1, 2, 0).numpy()
         Image.fromarray((raw_image_np * 255).astype('uint8')).save(image_bytes, format='JPEG')
         image_base64 = base64.b64encode(image_bytes.getvalue()).decode('utf-8')
-        print(f"Image converted to base64 format (first 16 chars): {image_base64[:16]}")
+        # print(f"Image converted to base64 format (first 16 chars): {image_base64[:16]}")
 
         return [
             {
@@ -141,10 +141,14 @@ if __name__ == "__main__":
         credentials_path=r"C:\Users\the_3\AppData\Roaming\gcloud\application_default_credentials.json"
     )
 
-    prompt = "What is on the flower?"
     image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"
     model_id = "google/paligemma-3b-mix-448"
 
-    predictions = predictor.get_prediction(image_url, prompt, model_id)
-    for prediction in predictions:
-        print("Prediction:", prediction)
+    while True:
+        prompt = input("Enter your prompt (or 'exit' to quit): ")
+        if prompt.lower() == 'exit':
+            break
+
+        predictions = predictor.get_prediction(image_url, prompt, model_id)
+        for prediction in predictions:
+            print("Prediction:", prediction)
