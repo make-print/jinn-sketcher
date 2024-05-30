@@ -1,8 +1,8 @@
 import base64
 import io
 import os
-from typing import Any, Dict, List, MutableSequence
 import traceback
+from typing import Any, Dict, List, MutableSequence
 
 import requests
 from PIL import Image
@@ -59,11 +59,16 @@ def preprocess(image_url: str, prompt: str, processor: AutoProcessor) -> List[Di
     # Convert the image tensor to a base64-encoded string
     image_bytes = io.BytesIO()
     raw_image_np = inputs['pixel_values'][0].permute(1, 2, 0).numpy()
-    Image.fromarray((raw_image_np * 255).astype('uint8')).save(image_bytes, format='PNG')
+    Image.fromarray((raw_image_np * 255).astype('uint8')).save(image_bytes, format='JPEG')
     image_base64 = base64.b64encode(image_bytes.getvalue()).decode('utf-8')
     print(f"Image converted to base64 format (first 16 chars): {image_base64[:16]}")
 
-    return [{"data": {"text": prompt, "image_bytes": {"b64": image_base64}}}]
+    return [
+        {
+            "prompt": prompt,
+            "image": image_base64,
+        }
+    ]
 
 
 def predict(
@@ -97,7 +102,6 @@ def predict(
 
     # Ensure instances are wrapped in the correct structure
     request_body = {"instances": instances}
-    print(f"Request body (first instance, first 16 chars of image_bytes): {request_body['instances'][0]['data']['image_bytes']['b64'][:16]}")
 
     instances = [json_format.ParseDict(instance, Value()) for instance in request_body['instances']]
     parameters = json_format.ParseDict({}, Value())
@@ -114,7 +118,7 @@ def main():
     Main function to execute the prediction using a custom Vertex AI endpoint.
     """
     prompt = "What is on the flower?"
-    image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg?download=true"
+    image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"
 
     print(f"Prompt: {prompt}")
     print(f"Image URL: {image_url}")
@@ -127,7 +131,7 @@ def main():
 
     # Preprocess the input
     instances = preprocess(image_url, prompt, processor)
-    print(f"Preprocessed instances: {instances}")
+    # print(f"Preprocessed instances: {instances}")
 
     # Get predictions from Vertex AI
     try:
