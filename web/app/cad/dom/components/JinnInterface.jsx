@@ -8,10 +8,10 @@ import ls from "./JinnInterface.less";
 import "react-resizable/css/styles.css"; // Import the styles for react-resizable
 // import aiIcon from './HvFZuUellR.webp'; // Import the AI icon image
 
-const isDev = true;
+const isDev = false;
 const SERVER_URL = isDev
-  ? "http://localhost:5001"
-  : "https://launch-server.make-print.com";
+  ? "http://localhost:5000"
+  : "https://launch-fc.make-print.com";
 
 export default function JinnInterface() {
   const [messages, setMessages] = useState([]);
