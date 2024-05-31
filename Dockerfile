@@ -1,27 +1,33 @@
-# Stage 1: Build the React application
-FROM node:21.3.0 AS build
+# Use the specified version of Node.js
+FROM node:21.3.0-alpine AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-COPY . ./
+# Copy the rest of the application
+COPY . .
+
+# Run the build command
 RUN npm run build
 
-# Stage 2: Serve the built application using a lightweight web server
-FROM nginx:alpine
+# Use a minimal Node.js image for serving the build
+FROM node:21.3.0-alpine
 
-# Copy Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-# Copy the build folder from stage 1 to the nginx container
-# TODO: double check if it is web folder
-COPY --from=build /app/dist /usr/share/nginx/html
+# Copy the build output from the builder stage
+COPY --from=builder /app/dist /app
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+# Install a simple HTTP server
+RUN npm install -g serve
 
-EXPOSE 80
+# Expose the port the app runs on
+EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+# Start the HTTP server
+CMD ["serve", "-s", ".", "-l", "3000"]
