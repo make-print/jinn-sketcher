@@ -65,6 +65,8 @@ class VertexAIPredictor:
         else:
             # Load and process the image from local file
             raw_image = Image.open(image_path)
+            # Convert to RGB format
+            raw_image = raw_image.convert('RGB')
 
         print("Image downloaded and opened.")
 
@@ -156,7 +158,7 @@ if __name__ == "__main__":
         if prompt.lower() == 'exit':
             break
         # image_path = input("Enter image path or URL (or 'exit' to quit): ")
-        image_path = "/Users/pascaldao/Dev/Make-Print/jinn-sketcher/jinn/sources/interface/screenshots/screenshot_20240529_234032_682493.png"
+        image_path = "screenshot_.png"
         if image_path.lower() == 'exit':
             break
 

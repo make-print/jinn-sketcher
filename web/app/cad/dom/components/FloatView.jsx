@@ -56,7 +56,7 @@ export default class FloatView extends React.Component {
                                         onClick={() => this.setState({selected: selected === tabId ? null : tabId})}>
           {renderedIcon(getDescriptor(tabId).icon)}
         </ToolButton>)}
-        <h1>Float Views</h1>
+        {/* <h1>Float Views</h1> */}
       </div>
       
       {selected && view(selected)}
