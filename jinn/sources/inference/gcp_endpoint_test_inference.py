@@ -3,6 +3,7 @@ import io
 import os
 import traceback
 from typing import Any, Dict, List, MutableSequence
+from urllib.parse import urlparse
 
 import requests
 from PIL import Image
@@ -39,13 +40,14 @@ class VertexAIPredictor:
         client_options = {"api_endpoint": api_endpoint}
         self.client = aiplatform.gapic.PredictionServiceClient(client_options=client_options)
         self.endpoint = self.client.endpoint_path(project=project, location=location, endpoint=endpoint_id)
+        print(f"Initialized Vertex AI client with endpoint: {self.endpoint}")
 
-    def preprocess(self, image_url: str, prompt: str, processor: AutoProcessor) -> List[Dict[str, Any]]:
+    def preprocess(self, image_path: str, prompt: str, processor: AutoProcessor) -> List[Dict[str, Any]]:
         """
         Preprocesses the image and prompt for the model input.
 
         Args:
-            image_url (str): URL of the image to be processed.
+            image_path (str): Path or URL of the image to be processed.
             prompt (str): Text prompt for the model.
             processor (AutoProcessor): Processor for the model.
 
@@ -53,11 +55,17 @@ class VertexAIPredictor:
             list: Preprocessed inputs including text and image in base64 format.
         """
         print("Starting preprocessing...")
-        print(f"Image URL: {image_url}")
+        print(f"Image Path: {image_path}")
         print(f"Prompt: {prompt}")
 
-        # Load and process the image
-        raw_image = Image.open(requests.get(image_url, stream=True).raw)
+        # Check if image_path is a URL or local file
+        if urlparse(image_path).scheme in ('http', 'https'):
+            # Load and process the image from URL
+            raw_image = Image.open(requests.get(image_path, stream=True).raw)
+        else:
+            # Load and process the image from local file
+            raw_image = Image.open(image_path)
+
         print("Image downloaded and opened.")
 
         inputs = processor(images=raw_image, return_tensors="pt")
@@ -101,12 +109,12 @@ class VertexAIPredictor:
 
         return response.predictions
 
-    def get_prediction(self, image_url: str, prompt: str, model_id: str) -> List[str]:
+    def get_prediction(self, image_path: str, prompt: str, model_id: str) -> List[str]:
         """
         Get predictions from the Vertex AI endpoint using the provided image URL and text prompt.
 
         Args:
-            image_url (str): URL of the image to be processed.
+            image_path (str): Path or URL of the image to be processed.
             prompt (str): Text prompt for the model.
             model_id (str): Model ID for the processor.
 
@@ -118,7 +126,7 @@ class VertexAIPredictor:
         print("Processor loaded.")
 
         # Preprocess the input
-        instances = self.preprocess(image_url, prompt, processor)
+        instances = self.preprocess(image_path, prompt, processor)
 
         # Get predictions from Vertex AI
         try:
@@ -138,13 +146,20 @@ if __name__ == "__main__":
         location="us-east1",
         endpoint_id="7694756205129891840",
         api_endpoint="us-east1-aiplatform.googleapis.com",
-        credentials_path=r"C:\Users\the_3\AppData\Roaming\gcloud\application_default_credentials.json"
+        credentials_path="application_default_credentials.json"
     )
 
-    prompt = "What is on the flower?"
-    image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"
     model_id = "google/paligemma-3b-mix-448"
 
-    predictions = predictor.get_prediction(image_url, prompt, model_id)
-    for prediction in predictions:
-        print("Prediction:", prediction)
+    while True:
+        prompt = input("Enter prompt (or 'exit' to quit): ")
+        if prompt.lower() == 'exit':
+            break
+        # image_path = input("Enter image path or URL (or 'exit' to quit): ")
+        image_path = "/Users/pascaldao/Dev/Make-Print/jinn-sketcher/jinn/sources/interface/screenshots/screenshot_20240529_234032_682493.png"
+        if image_path.lower() == 'exit':
+            break
+
+        predictions = predictor.get_prediction(image_path, prompt, model_id)
+        for prediction in predictions:
+            print("Prediction:", prediction)
