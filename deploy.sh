@@ -1,44 +1,23 @@
-#!/usr/bin/bash
-
-# Define the Docker compose service name
-SERVICE_NAME="jinn"
+#!/bin/bash
 
 # Build the Docker image
-build_image() {
-    # Build the Docker image using the Dockerfile specified in the Docker Compose for the service
-    docker-compose build $SERVICE_NAME || {
-        echo "Failed to build Docker image for service: $SERVICE_NAME"
-        exit 1
-    }
-}
+echo "Building Docker image..."
+if ! docker-compose build; then
+    echo "Failed to build Docker image."
+    exit 1
+fi
 
-# Stop any existing containers for the service
-stop_existing_container() {
-    docker-compose stop $SERVICE_NAME || {
-        echo "Failed to stop existing container for service: $SERVICE_NAME"
-        exit 1
-    }
-    docker-compose rm -f $SERVICE_NAME || {
-        echo "Failed to remove existing container for service: $SERVICE_NAME"
-        exit 1
-    }
-}
+# Start the Docker container
+echo "Starting Docker container..."
+if ! docker-compose up -d; then
+    echo "Failed to start Docker container."
+    exit 1
+fi
 
-# Start a new container for the service
-run_container() {
-    docker-compose up -d $SERVICE_NAME || {
-        echo "Failed to run Docker container for service: $SERVICE_NAME"
-        exit 1
-    }
-}
-
-# Determine the operating system
-UNAME=$(uname)
-
-# Execute the commands based on the operating system
-if [[ "$UNAME" == "Darwin" || "$UNAME" == "Linux" || "$UNAME" == "MINGW"* || "$UNAME" == "MSYS_NT"* ]]; then
-    build_image && stop_existing_container && run_container
+# Check if the container is running
+if [ "$(docker inspect -f '{{.State.Running}}' jsketcher-container)" == "true" ]; then
+    echo "Application is running locally via Docker on port 3000."
 else
-    echo "Unsupported operating system: $UNAME"
+    echo "Failed to start the application."
     exit 1
 fi
