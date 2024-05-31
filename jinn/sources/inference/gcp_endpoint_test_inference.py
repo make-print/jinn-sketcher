@@ -76,7 +76,7 @@ class VertexAIPredictor:
         raw_image_np = inputs['pixel_values'][0].permute(1, 2, 0).numpy()
         Image.fromarray((raw_image_np * 255).astype('uint8')).save(image_bytes, format='JPEG')
         image_base64 = base64.b64encode(image_bytes.getvalue()).decode('utf-8')
-        print(f"Image converted to base64 format (first 16 chars): {image_base64[:16]}")
+        # print(f"Image converted to base64 format (first 16 chars): {image_base64[:16]}")
 
         return [
             {
