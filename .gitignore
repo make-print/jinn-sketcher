@@ -178,3 +178,5 @@ cython_debug/
 #.idea/
 
 application_default_credentials.json
+/jinn/sources/interface/screenshots
+/jinn/sources/interface/recordings
